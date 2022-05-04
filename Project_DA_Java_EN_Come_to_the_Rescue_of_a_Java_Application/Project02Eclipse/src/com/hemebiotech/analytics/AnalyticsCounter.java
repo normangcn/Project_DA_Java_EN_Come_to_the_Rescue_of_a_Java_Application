@@ -1,41 +1,37 @@
 package com.hemebiotech.analytics;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.util.HashMap;
+import java.util.List;
 
 public class AnalyticsCounter {
+	public HashMap<String, Integer> symptomsReaderAndStorer() {
+		try {
+			HashMap<String, Integer> symptomsMap = new HashMap<String, Integer>();
+			ReadSymptomDataFromFile readData = new ReadSymptomDataFromFile("Project02Eclipse/symptoms.txt");
+			List<String> listSymptoms = readData.GetSymptoms();
+
+			for (String symptom : listSymptoms) {
+				symptomsMap.put(symptom, symptomsMap.getOrDefault(symptom, 0) + 1);
+			}
+			for (String i : symptomsMap.keySet()) {
+				System.out.println("key: " + i + " value: " + symptomsMap.get(i));
+			}
+			return symptomsMap;
+		} catch (Exception e) {
+			System.out.println("");
+		}
+		return null;
+	}
+
+	public HashMap<String, Integer> alphaSorting(HashMap<String, Integer> map) {
+
+		return null;
+	}
 
 	public static void main(String args[]) throws Exception {
-		BufferedReader reader = new BufferedReader (new FileReader("Project02Eclipse/symptoms.txt"));
-		String line = reader.readLine();
+		AnalyticsCounter listSymptomsMap = new AnalyticsCounter();
+		HashMap<String, Integer> map = listSymptomsMap.symptomsReaderAndStorer();
+		listSymptomsMap.alphaSorting(map);
 
-		int i = 0;
-		int headAcheCount = 0;
-		int rashCount = 0;
-		int dialatedPupilsCount = 0;
-
-		while (line != null) {
-			i++;	
-			System.out.println("symptom from file: " + line);
-			if (line.equals("headache")) {
-				headAcheCount++;
-				System.out.println("number of headaches: " + headAcheCount);
-			}
-			else if (line.equals("rash")) {
-				rashCount++;
-			}
-			else if (line.contains("dialated pupils")) {
-				dialatedPupilsCount++;
-			}
-			line = reader.readLine();
-		}
-
-
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write("headache: " + headAcheCount + "\n");
-		writer.write("rash: " + rashCount + "\n");
-		writer.write("dialated pupils: " + dialatedPupilsCount + "\n");
-		writer.close();
 	}
 }
