@@ -29,7 +29,7 @@ public class AnalyticsCounter {
 			}
 			return symptomsMap;
 		} catch (Exception e) {
-			System.out.println("");
+			System.out.println("There was an issue on the first map return");
 		}
 		return null;
 	}
@@ -40,9 +40,15 @@ public class AnalyticsCounter {
 	 * @return an alphabetically sorted map
 	 */
 	public TreeMap<String, Integer> alphaSorting(HashMap<String, Integer> map) {
+		try {
 		TreeMap<String, Integer> sortedSymptomsMap = new TreeMap<>();
 		sortedSymptomsMap.putAll(map);
 		return sortedSymptomsMap;
+		}
+		catch (Exception e) {
+			System.out.println("There was an issue while sorting the map.");
+		}
+		return null;
 	}
 
 	/**
